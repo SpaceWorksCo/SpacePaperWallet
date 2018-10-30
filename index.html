@@ -9759,6 +9759,22 @@ h1 { margin: 0px; height: 91px; }
 .label.small {
 	font-size: 14px;
 }
+.getxpubarea-inner {
+	text-align: left;
+	width: 80%;
+	margin: 0 auto;
+	padding: 35px 0;
+}
+p {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.getxpubarea-seed {
+	width: 510px;
+}
+#getxpubarea-res {
+	word-break: break-all;
+}
   </style>
 </head>
 <body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
@@ -9791,6 +9807,7 @@ h1 { margin: 0px; height: 91px; }
 			<div class="tab i18n" id="generateseed" onclick="ninja.tabSwitch(this);">Generate seed</div>
 			<div class="tab i18n" id="getprivkeys" onclick="ninja.tabSwitch(this);">Seed priv keys</div>
 			<div class="tab i18n" id="getbip39keys" onclick="ninja.tabSwitch(this);">bip39 keys</div>
+			<div class="tab i18n" id="getxpub" onclick="ninja.tabSwitch(this);">xpub</div>
     </div>
 
     <div id="wallets">
@@ -9912,8 +9929,18 @@ h1 { margin: 0px; height: 91px; }
 				</div>
 			</div>
 
-			<div id="singlearea" class="walletarea">
+			<div id="getxpubarea" class="walletarea">
+				<div class="getxpubarea-inner">
+					<span class="label i18n">Provide your Agama/BarterDEX seed or a random seed to get xpub key</span>
+					<p>
+						<input type="password" id="getxpubarea-seed" class="getxpubarea-seed" value="" placeholder="Enter your seed here" autocomplete="off" onfocus="this.select();">
+						<input type="button" id="getxpubbutton" value="Get xpub key" onclick="ninja.wallets.getxpub.get();">
+					</p>
+					<div id="getxpubarea-res"></div>
+				</div>
+			</div>
 
+			<div id="singlearea" class="walletarea">
         <div id="initBanner">
           <span id="generatelabelbitcoinaddress" class="i18n">Generating new Address...</span><br />
           <span id="generatelabelmovemouse" class="i18n">MOVE your mouse around to add some extra randomness... </span><span id="mousemovelimit"></span><br />
@@ -11446,6 +11473,23 @@ ninja.wallets.singlewallet = {
 };
 	</script>
 	<script src="agamalib.js"></script>
+	<!-- xpub -->
+	<script type="text/javascript">
+		ninja.wallets.getxpub = {
+			open: function () {
+				document.getElementById("getxpubarea").style.display = "block";
+			},
+			get: function() {
+				var seed = document.getElementById("getxpubarea-seed").value;
+				var xpub = agama.keys.xpub(seed);
+				document.getElementById("getxpubarea-res").innerHTML = xpub;
+			},
+			close: function () {
+				document.getElementById("getxpubarea").style.display = "none";
+				document.getElementById("getxpubarea-res").innerHTML = '';
+			},
+		};
+	</script>
 	<!-- bip39 priv keys -->
 	<script type="text/javascript">
 		ninja.wallets.getbip39keys = {
@@ -11484,17 +11528,7 @@ ninja.wallets.singlewallet = {
 						document.getElementById("getbip39keysarea-inner-res-msg").innerHTML = 'Unable to find address ' + searchPattern + ', please check pub key and seed are correct or try incrementing selector options.';
 					}
 					document.getElementById("getbip39keysarea-inner-res").style.display = "block";
-				}/* else {
-					var htmlOut = [];
-
-					for () {
-						htmlOut.push(
-						);
-					}
-
-					document.getElementById("getbip39keysarea-inner-res-msg").innerHTML = htmlOut.join('');
-					document.getElementById("getbip39keysarea-inner-res").style.display = "block";
-				}*/
+				}
 			},
 			close: function () {
 				document.getElementById("getbip39keysarea").style.display = "none";
