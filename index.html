@@ -9765,15 +9765,29 @@ h1 { margin: 0px; height: 91px; }
 	margin: 0 auto;
 	padding: 35px 0;
 }
-p {
-	padding-top: 15px;
+.getxpubarea-inner p {
+	padding-top: 10px;
 	padding-bottom: 15px;
+}
+.getxpubarea-inner p.first {
+	padding-top: 10px;
+	padding-bottom: 0;
 }
 .getxpubarea-seed {
 	width: 510px;
 }
 #getxpubarea-res {
 	word-break: break-all;
+}
+#getxpubarea .label {
+	text-align: left;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 15px;
+}
+#getxpubarealabel-bip32,
+.getxpubarea-account {
+	margin-left: 40px;
 }
   </style>
 </head>
@@ -9932,6 +9946,13 @@ p {
 			<div id="getxpubarea" class="walletarea">
 				<div class="getxpubarea-inner">
 					<span class="label i18n">Provide your Agama/BarterDEX seed or a random seed to get xpub key</span>
+					<p class="first">
+						<span class="default-text">Coin</span> <select id="getxpubarea-select" class="getxpubarea-select"></select>
+						<span onclick="ninja.wallets.getxpub.renderCoinSelector();"><label id="getxpubarealabel-bip32" for="getxpubarea-bip32">bip32</label> <input type="checkbox" id="getxpubarea-bip32" /></span>
+						<span id="getxpubarea-account-block">
+							<span class="default-text getxpubarea-account">Account</span> <select id="getxpubarea-account-select" class="getxpubarea-select"></select>
+						</span>
+					</p>
 					<p>
 						<input type="password" id="getxpubarea-seed" class="getxpubarea-seed" value="" placeholder="Enter your seed here" autocomplete="off" onfocus="this.select();">
 						<input type="button" id="getxpubbutton" value="Get xpub key" onclick="ninja.wallets.getxpub.get();">
@@ -11477,11 +11498,52 @@ ninja.wallets.singlewallet = {
 	<script type="text/javascript">
 		ninja.wallets.getxpub = {
 			open: function () {
+				var maxAccountDepth = 10;
 				document.getElementById("getxpubarea").style.display = "block";
+				document.getElementById("getxpubarea-bip32").checked = false;
+				this.renderCoinSelector();
+
+				var htmlOut = [];
+
+				for (var i = 0; i < maxAccountDepth; i++) {
+					htmlOut.push("<option id=\"account-" + i + "\" value=\"" + i + "\">" + (i === 0 ? '0 (default)' : i)  + "</option>");
+				}
+
+				document.getElementById("getxpubarea-account-select").innerHTML = htmlOut.join('');
+				document.getElementById("account-0").selected = true;
+			},
+			renderCoinSelector: function() {
+				var htmlOut = [];
+
+				for (var key in agama.btcnetworks) {
+					if ((agama.btcnetworks[key].bip32 && agama.btcnetworks[key].bip44 && !document.getElementById("getxpubarea-bip32").checked) ||
+							(agama.btcnetworks[key].bip32 && document.getElementById("getxpubarea-bip32").checked)) {
+						htmlOut.push("<option id=\"btcnet-" + key + "\" value=\"" + key + "\">" + key + "</option>");
+					}
+				}
+
+				document.getElementById("getxpubarea-account-block").style.display = document.getElementById("getxpubarea-bip32").checked ? "none" : "inline-block";
+				document.getElementById("getxpubarea-select").innerHTML = htmlOut.join('');
+				document.getElementById("btcnet-kmd").selected = true;
 			},
 			get: function() {
+				var option = document.getElementById("getxpubarea-select").value;
+				var account = document.getElementById("getxpubarea-account-select").value;
 				var seed = document.getElementById("getxpubarea-seed").value;
-				var xpub = agama.keys.xpub(seed);
+				var xpub;
+
+				if (document.getElementById("getxpubarea-bip32").checked) {
+					xpub = agama.keys.xpub(seed, {
+						network: agama.btcnetworks[option],
+						bip32: true,
+					});
+				} else {
+					xpub = agama.keys.xpub(seed, {
+						network: agama.btcnetworks[option],
+						bip44: true,
+						path: "m/44'/" + agama.btcnetworks[option].bip44 + "'/" + account + "'",
+					});
+				}
 				document.getElementById("getxpubarea-res").innerHTML = xpub;
 			},
 			close: function () {
@@ -11495,7 +11557,6 @@ ninja.wallets.singlewallet = {
 		ninja.wallets.getbip39keys = {
 			open: function () {
 				document.getElementById("getbip39keysarea").style.display = "block";
-				//document.getElementById("btcnet-kmd").selected = true;
 			},
 			get: function() {
 				var seed = document.getElementById("getbip39keysarea-seed").value;
