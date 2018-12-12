@@ -11544,6 +11544,7 @@ ninja.wallets.singlewallet = {
 						path: "m/44'/" + agama.btcnetworks[option].bip44 + "'/" + account + "'",
 					});
 				}
+				
 				document.getElementById("getxpubarea-res").innerHTML = xpub;
 			},
 			close: function () {
@@ -11623,7 +11624,7 @@ ninja.wallets.singlewallet = {
 
 				if (seed) {
 					if (option !== 'all') {
-						var _keys = agama.keys.seedToWif(seed, agama.btcnetworks[option], true);
+						var _keys = agama.keys.stringToWif(seed, agama.btcnetworks[option], true);
 
 						document.getElementById("getprivkeysarea-inner-res").style.display = "block";
 						document.getElementById("getprivkeysarea-inner-res-msg").innerHTML = '<div class="getprivkeysarea-inner-res-msg-item">' +
