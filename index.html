@@ -9789,6 +9789,51 @@ h1 { margin: 0px; height: 91px; }
 .getxpubarea-account {
 	margin-left: 40px;
 }
+.offline-sign-area-inner {
+	text-align: left;
+	width: 80%;
+	margin: 0 auto;
+	padding: 35px 0;
+}
+.offline-sign-area-inner .label {
+	text-align: left;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 15px;
+}
+.offline-sign-area-seed {
+	display: block;
+	width: 650px;
+	padding: 5px;
+	margin: 22px 0 24px 0;
+}
+#offline-sign-area-verify-block p {
+	padding-top: 10px;
+}
+#offline-sign-area-verify-block strong {
+	font-size: 15px;
+}
+.offline-sign-area-verify-button-block {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#offline-sign-area-txin {
+	padding: 5px;
+}
+#offline-sign-area-verify-block-error {
+	font-weight: bold;
+	color:brown;
+	padding-top: 10px;
+}
+#offline-sign-area-rawtx-bytes {
+	word-break: break-all;
+	padding-top: 10px;
+}
+#offline-sign-area-clear-btn {
+	position: absolute;
+	right: 160px;
+	margin-top: -38px;
+}
   </style>
 </head>
 <body onclick="SecureRandom.seedTime();" onmousemove="ninja.seeder.seed(event);">
@@ -9820,11 +9865,56 @@ h1 { margin: 0px; height: 91px; }
 			<div class="tab i18n" id="decryptseed" onclick="ninja.tabSwitch(this);">Decrypt seed</div>
 			<div class="tab i18n" id="generateseed" onclick="ninja.tabSwitch(this);">Generate seed</div>
 			<div class="tab i18n" id="getprivkeys" onclick="ninja.tabSwitch(this);">Seed priv keys</div>
-			<div class="tab i18n" id="getbip39keys" onclick="ninja.tabSwitch(this);">bip39 keys</div>
+			<div class="tab i18n" id="getbip39keys" onclick="ninja.tabSwitch(this);">BIP39 keys</div>
 			<div class="tab i18n" id="getxpub" onclick="ninja.tabSwitch(this);">xpub</div>
+			<div class="tab i18n" id="offlineSign" onclick="ninja.tabSwitch(this);">Sign</div>
     </div>
 
     <div id="wallets">
+			<div id="offline-sign-area" class="walletarea">
+				<div class="offline-sign-area-inner">
+					<span class="label i18n">Provide required data below to sign a transaction</span>
+					<input type="button" id="offline-sign-area-clear-btn" value="Clear" onclick="ninja.wallets.offlineSign.open();">
+					<input type="password" id="offline-sign-area-seed" class="offline-sign-area-seed" value="lime lime2" placeholder="Enter your seed/priv key here" autocomplete="off" onfocus="this.select();">
+					<textarea rows="10" cols="110" id="offline-sign-area-txin" placeholder="Provide unsigned transaction data generated from Agama">
+					{"utxoSet":[{"txid":"7bf8e2e421fadd3f6555e8b4830a8aace079967a2e9abe7cde94bc99d3c03e8f","vout":1,"value":13884579076,"interestSats":8035610,"verified":false,"height":1163703,"currentHeight":1169830},{"txid":"e1a331676fc60d763b272916114ded6ca1bad9ff3ff8dd99418dc13e6c50e2a8","vout":0,"value":1141881981,"interestSats":4814748,"verified":false,"height":1060109,"currentHeight":1169830},{"txid":"3b026abffc51f2d78ea3aa57e5616dc05459254d6d2a182a8a68d0834ce58915","vout":1,"value":443084169,"interestSats":0,"verified":false,"height":1163659,"currentHeight":1169830}],"change":12830358,"changeAdjusted":12830358,"totalInterest":12850358,"fee":10000,"value":15469545226,"outputAddress":"RBtmFFVxL1r3xcvJHFXZmURuazCx75nprS","changeAddress":"RBtmFFVxL1r3xcvJHFXZmURuazCx75nprS","network":"kmd","utxoVerified":false,"coin":"kmd","from":"RBtmFFVxL1r3xcvJHFXZmURuazCx75nprS"}
+					</textarea>
+					<div class="offline-sign-area-verify-button-block">
+						<input type="button" id="offline-sign-area-verify" value="Verify" onclick="ninja.wallets.offlineSign.verify();">
+					</div>
+					<div id="offline-sign-area-verify-block-error"></div>
+					<div id="offline-sign-area-verify-block">
+						<hr />
+						<p>
+							<strong>Coin:</strong> <span id="offline-sign-area-verify-coin" class="offline-sign-area-verify-coin"></span>
+						</p>
+						<p>
+							<strong>From:</strong> <span id="offline-sign-area-verify-from" class="offline-sign-area-verify-from"></span>
+						</p>
+						<p>
+							<strong>To:</strong> <span id="offline-sign-area-verify-to" class="offline-sign-area-verify-to"></span>
+						</p>
+						<p>
+							<strong>Amount:</strong> <span id="offline-sign-area-verify-amount" class="offline-sign-area-verify-amount"></span>
+						</p>
+						<p>
+							<strong>Fee:</strong> <span id="offline-sign-area-verify-fee" class="offline-sign-area-verify-fee"></span>
+						</p>
+						<p>
+							<strong>Change:</strong> <span id="offline-sign-area-verify-change" class="offline-sign-area-verify-change"></span> <strong>to</strong> <span id="offline-sign-area-verify-change-address" class="offline-sign-area-verify-change-address"></span>
+						</p>
+						<div class="offline-sign-area-verify-button-block">
+							<input type="button" id="offline-sign-area-verify" value="Sign" onclick="ninja.wallets.offlineSign.sign();">
+						</div>
+					</div>
+					<div id="offline-sign-area-rawtx" class="offline-sign-area-rawtx">
+						<hr />
+						<strong>Signed transaction:</strong>
+						<div id="offline-sign-area-rawtx-bytes"></div>
+					</div>
+				</div>
+			</div>
+
 			<div id="getbip39keysarea" class="walletarea">
 				<div class="getbip39keysarea-inner">
 					<span class="label i18n">Provide your Ledger or any other bip39 compatible seed to retrieve KMD private keys</span>
@@ -11493,7 +11583,91 @@ ninja.wallets.singlewallet = {
 	}
 };
 	</script>
+	<!-- agamalib.js src: https://github.com/pbca26/agama-wallet-lib -->
 	<script src="agamalib.js"></script>
+	<!-- offline sign -->
+	<script type="text/javascript">
+		ninja.wallets.offlineSign = {
+			open: function () {
+				document.getElementById("offline-sign-area-txin").value = "";
+				document.getElementById("offline-sign-area-seed").value = "";
+				document.getElementById("offline-sign-area").style.display = "block";
+				document.getElementById("offline-sign-area-verify-block").style.display = "none";
+				document.getElementById("offline-sign-area-rawtx").style.display = "none";
+				document.getElementById("offline-sign-area-verify-block-error").innerHTML = "";
+				document.getElementById("offline-sign-area-rawtx-bytes").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-coin").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-from").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-to").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-amount").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-fee").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-change").innerHTML = "";
+				document.getElementById("offline-sign-area-verify-change-address").innerHTML = "";
+			},
+			verify: function() {
+				var unsignedTx = document.getElementById("offline-sign-area-txin").value;
+
+				if (!unsignedTx ||
+						!unsignedTx.length) {
+					document.getElementById("offline-sign-area-verify-block-error").innerHTML = 'Error: missing unsigned transaction data';
+				} else {
+					var privKeyEntry = document.getElementById("offline-sign-area-seed").value;
+
+					if (!privKeyEntry) {
+						document.getElementById("offline-sign-area-verify-block-error").innerHTML = 'Error: missing private key to sign transaction data';
+					} else {
+						try {
+							var unsignedTxObj = JSON.parse(unsignedTx);
+							var pub = agama.keys.stringToWif(privKeyEntry, agama.btcnetworks[unsignedTxObj.network], true).pub;
+
+							if (unsignedTxObj.from &&
+									unsignedTxObj.from === pub) {
+								document.getElementById("offline-sign-area-verify-coin").innerHTML = unsignedTxObj.coin.toUpperCase();
+								document.getElementById("offline-sign-area-verify-from").innerHTML = unsignedTxObj.from;
+								document.getElementById("offline-sign-area-verify-to").innerHTML = unsignedTxObj.outputAddress;
+								document.getElementById("offline-sign-area-verify-amount").innerHTML = agama.utils.fromSats(unsignedTxObj.value);
+								document.getElementById("offline-sign-area-verify-fee").innerHTML = agama.utils.fromSats(unsignedTxObj.fee);
+								document.getElementById("offline-sign-area-verify-change").innerHTML = agama.utils.fromSats(unsignedTxObj.change);
+								document.getElementById("offline-sign-area-verify-change-address").innerHTML = unsignedTxObj.changeAddress;
+								document.getElementById("offline-sign-area-verify-block").style.display = "block";
+								document.getElementById("offline-sign-area-verify-block-error").innerHTML = "";
+							} else {
+								document.getElementById("offline-sign-area-verify-block-error").innerHTML = 'Error: malformatted unsigned transaction data. Wrong private key or incomplete data set.';
+							}
+						} catch (e) {
+							document.getElementById("offline-sign-area-verify-block-error").innerHTML = 'Error: malformatted unsigned transaction data';
+						}
+					}
+				}
+			},
+			sign: function() {
+				var unsignedTx = document.getElementById("offline-sign-area-txin").value;
+				var privKeyEntry = document.getElementById("offline-sign-area-seed").value;
+				var unsignedTxObj = JSON.parse(unsignedTx);
+				var kp = agama.keys.stringToWif(privKeyEntry, agama.btcnetworks[unsignedTxObj.network], true);
+
+				document.getElementById("offline-sign-area-rawtx").style.display = "block";
+
+				try {
+					var signedTx = agama.transactionBuilder.transaction(
+						unsignedTxObj.outputAddress,
+						unsignedTxObj.changeAddress,
+						kp.priv,
+						agama.btcnetworks[unsignedTxObj.network],
+						unsignedTxObj.utxoSet,
+						unsignedTxObj.change,
+						unsignedTxObj.value
+					);
+
+					document.getElementById("offline-sign-area-rawtx-bytes").innerHTML = signedTx;
+				} catch (e) {
+					document.getElementById("offline-sign-area-rawtx-bytes").innerHTML = 'Unable to sign transaction!'
+				}
+			},
+			close: function() {
+			},
+		};
+	</script>
 	<!-- xpub -->
 	<script type="text/javascript">
 		ninja.wallets.getxpub = {
