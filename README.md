@@ -1,4 +1,5 @@
-#Space Paper Wallet
+# Space Paper Wallet
+********************************************************************
 
 Generate spacecoin addresses right from your browser.
 
@@ -9,7 +10,9 @@ It will open in your browser just like a normal site.
 It's recommended to disconnect your internet before opening the index.html file and generating addresses, to further protect your security.
 
 
-**** Download SpacePaperWallet Here! ********************************
+*********************************************************************
+
+# Download SpacePaperWallet Here!
 
 https://github.com/SpaceWorksCo/SpacePaperWallet/archive/master.zip
 
@@ -20,7 +23,7 @@ The SpacePaperWallet provides an all-in-one HTML document with embedded JavaScri
 The benefit of this technique is you can load the JavaScript locally and trust that the JavaScript did not change after being loaded.
 
 
-USER NOTES:
+# User Notes:
  1) To print QRCode in IE8 you must enable the "Print Background Colors and Images" checkbox on the "Page Setup" screen.
  2) For Bulk Wallet I recommended using Google Chrome, it's the fastest.
  3) Requires IE8+, Firefox, Chrome or sufficient JavaScript support.
@@ -29,7 +32,7 @@ USER NOTES:
  6) Art Wallet does not work properly in IE8 due to CSS limitations.
 
 
-Notice of Copyrights and Licenses:
+Copyrights and Licenses:
 ---------------------------------------
 The WalletGenerator.net project, software and embedded resources are copyright WalletGenerator.net.
 The WalletGenerator.net name and logo are not part of the open source license.
