@@ -9628,7 +9628,7 @@ h1 { margin: 0px; height: 91px; }
   height: 80px;
 }
 .banner {
-	height: 100px;
+	height: 256px;
 }
 #coinLogo {
 	width: 305px;
@@ -9638,7 +9638,10 @@ h1 { margin: 0px; height: 91px; }
 	display: inline-block;
 }
 #coinLogo img {
-	width: 55px;
+	width: 512px;
+  height: 256px;
+  background: url("images/spacecoin_logo_full_horizontal_trans_background_512x256.png")
+
 }
 #coinLogo span {
 	position: relative;
@@ -9658,8 +9661,8 @@ h1 { margin: 0px; height: 91px; }
 
     <div class="banner">
       <div id="coinLogo">
-        <img id="coinLogoImg" src="logos/spacecoin.png" alt="Open Source Client-Side Wallet Generator" />
-        <span>Spacecoin</span>
+        <img id="coinLogoSpace" src="images/spacecoin_logo_full_horizontal_trans_background_512x256.png" alt="Spacecoin Paper Wallet Generator" />
+        <span></span>
       </div>
       <div id="siteTitle" alt="Spacecoin Paper Wallet Generator"></div>
     </div>
@@ -9729,19 +9732,19 @@ h1 { margin: 0px; height: 91px; }
 
             <h3 id="securitystep0title" class="i18n">Step 1. Security Checklist</h3>
             <p id="securitystep0" class="i18n">
-		The first step is to <strong>download this website</strong> <a href="https://github.com/SpaceWorksCo/SpacePaperWallet/archive/master.zip">from github</a>. Then open the index.html file directly on your computer.
+		The first step is to <strong>download this website from </strong> <a href="https://github.com/SpaceWorksCo/SpacePaperWallet/archive/master.zip">the github</a> and open the index.html file directly on your computer.
             </p>
             <h3 id="securitystep1title" class="i18n">Step 2. Generate a new address</h3>
             <p id="securitystep1" class="i18n">
-              Move your mouse or input text to generate a new address, or click "Generate new address".
+              Move your mouse or input text to generate a new address.
             </p>
-            <h3 id="securitystep2title" class="i18n">Step 3. Print out your Paper Wallet</h3>
+            <h3 id="securitystep2title" class="i18n">Step 3. Print out your paper wallet</h3>
             <p id="securitystep2" class="i18n">
-              Click the Paper Wallet tab and print the page on high quality setting. <strong>Never save as a PDF because a file is more likely to be hacked than a piece of paper.</strong>
+              Click the paper wallet tab and print the page on high quality setting. <strong>Never save as a file because it is far more likely to be hacked than a piece of paper.</strong>
             </p>
-            <h3 id="securitystep3title" class="i18n">Step 4. Fold your Paper Wallet</h3>
+            <h3 id="securitystep3title" class="i18n">Step 4. Fold your paper wallet</h3>
             <p id="securitystep3" class="i18n">
-              Fold your new Paper Wallet following the lines.
+              Fold your new paper wallet following the lines.
               <img src="images/foldinginstructions.png" alt="Fold in half lengthwise, and then in three widthwise." /><br />
               You can insert one side inside the other to lock the wallet.
             </p>
@@ -9805,12 +9808,12 @@ h1 { margin: 0px; height: 91px; }
             Consider using BIP38 to secure your paper wallet with a password. Also<strong> download and then unplug your Internet access</strong> while generating your wallet.
           </p>
 
-	  <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion7');">&#8226; Why should I download and run offline?</a></h3>
+	  <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; Why should I download and run offline?</a></h3>
           <p class="faqAnswer" id="faqQuestion5">
             It's just too easy to sneak some evil code in the 6000+ lines of javascript to leak your private key, and you don't want to see your fund stolen. Code version control make it much easier to cross-check what actually run. For extra security, <strong>unplug your Internet access</strong> while generating your wallet.
           </p>
 
-          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion5');">&#8226; How can I spend the coins stored in my paper wallets?</a></h3>
+          <h3 class="faqQuestion"><a class="faqLink" onclick="ninja.toggleFaqQuestion('faqQuestion6');">&#8226; How can I spend the coins stored in my paper wallets?</a></h3>
           <p class="faqAnswer" id="faqQuestion6">
             You can import your private key into Space-OceanQT or any other Spacecoin wallet.
           </p>
