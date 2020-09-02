@@ -16,7 +16,7 @@ It's recommended to disconnect your internet before opening the index.html file 
 
 # Download SpacePaperWallet Here!
 
-https://github.com/SpaceWorksCo/SpacePaperWallet/archive/master.zip
+https://github.com/SpaceWorksCo/SpacePaperWallet/archive/v0.1.zip
 
 *********************************************************************
 
