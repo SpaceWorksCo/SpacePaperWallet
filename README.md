@@ -1,6 +1,8 @@
 # Space Paper Wallet
 ********************************************************************
 
+![Downloads](https://img.shields.io/github/downloads/SpaceWorksCo/SpacePaperWallet/total)
+
 Generate spacecoin addresses right from your browser.
 
 Download from the link below, and then open the index.html file.
