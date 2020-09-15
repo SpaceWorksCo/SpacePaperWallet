@@ -1,22 +1,16 @@
 # Space Paper Wallet
 ********************************************************************
 
-![Downloads](https://img.shields.io/github/downloads/SpaceWorksCo/SpacePaperWallet/total)
-
 Generate spacecoin addresses right from your browser.
 
-Download from the link below, and then open the index.html file.
+Download from the link below, and then open the `index.html` file.
 
 It will open in your browser just like a normal site.
 
-It's recommended to disconnect your internet before opening the index.html file and generating addresses, to further protect your security.
+It's recommended to disconnect your internet before opening the `index.html` file and generating addresses, to further protect your security.
 
+### [Download SpacePaperWallet](https://github.com/SpaceWorksCo/SpacePaperWallet/archive/master.zip)
 
-*********************************************************************
-
-# Download SpacePaperWallet Here!
-
-https://github.com/SpaceWorksCo/SpacePaperWallet/archive/v0.1.zip
 
 *********************************************************************
 
@@ -25,7 +19,7 @@ The SpacePaperWallet provides an all-in-one HTML document with embedded JavaScri
 The benefit of this technique is you can load the JavaScript locally and trust that the JavaScript did not change after being loaded.
 
 
-# User Notes:
+## User Notes:
  1) To print QRCode in IE8 you must enable the "Print Background Colors and Images" checkbox on the "Page Setup" screen.
  2) For Bulk Wallet I recommended using Google Chrome, it's the fastest.
  3) Requires IE8+, Firefox, Chrome or sufficient JavaScript support.
